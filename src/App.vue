@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>李雪琳天天开心</h1>
+    <h1>雪琳平平安安</h1>
   </div>
   <HelloWorld msg="Vite + Vue" />
 </template>
