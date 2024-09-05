@@ -5,6 +5,8 @@ import { reqLogin } from '@/api/user'
 import type { loginFormData, loginResponseData } from '@/api/user/type'
 import type { UserState } from './types/type'
 import { SET_TOKEN, GET_TOKEN } from '@/utils/token'
+// 引入常量路由
+import { constantRoute } from '@/router/routes'
 
 //创建用户小仓库
 const useUserStore = defineStore('User', {
@@ -12,6 +14,7 @@ const useUserStore = defineStore('User', {
   state: (): UserState => {
     return {
       token: GET_TOKEN(), // 用户唯一标识token
+      menuRoutes: constantRoute
     }
   },
   //异步|逻辑的地方
