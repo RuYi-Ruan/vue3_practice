@@ -7,7 +7,6 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 // 全局对象
 const allGlobalComponent = { SvgIcon, pagination }
 
-
 // 对外暴露插件对象
 export default {
   install(app: App) {
@@ -17,10 +16,9 @@ export default {
         key,
         allGlobalComponent[key as keyof typeof allGlobalComponent],
       )
-    });
+    })
     for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
       app.component(key, component)
     }
   },
-
 }

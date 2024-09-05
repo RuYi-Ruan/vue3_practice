@@ -8,12 +8,11 @@
   </router-view>
 </template>
 
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <script lang="ts">
 export default {
-  name:'Main'
+  name: 'Main',
 }
 </script>
 
@@ -23,7 +22,9 @@ export default {
   transform: scale(0.95); /* 初始缩小 */
 }
 .fade-scale-enter-active {
-  transition: opacity 0.4s ease-out, transform 0.4s ease-out; /* 平滑过渡 */
+  transition:
+    opacity 0.4s ease-out,
+    transform 0.4s ease-out; /* 平滑过渡 */
 }
 .fade-scale-enter-to {
   opacity: 1;
@@ -35,7 +36,9 @@ export default {
   transform: scale(1); /* 保持原始大小 */
 }
 .fade-scale-leave-active {
-  transition: opacity 0.3s ease-in, transform 0.3s ease-in; /* 离开时动画略快 */
+  transition:
+    opacity 0.3s ease-in,
+    transform 0.3s ease-in; /* 离开时动画略快 */
 }
 .fade-scale-leave-to {
   opacity: 0;

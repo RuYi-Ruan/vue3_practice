@@ -6,15 +6,15 @@
 </template>
 
 <script setup lang="ts">
-import setting from '@/setting';
-import useLayoutSettingStore from '@/store/modules/setting';
-let layoutSettingStore = useLayoutSettingStore();
+import setting from '@/setting'
+import useLayoutSettingStore from '@/store/modules/setting'
+let layoutSettingStore = useLayoutSettingStore()
 </script>
 
 <script lang="ts">
 export default {
   name: 'Logo',
-};
+}
 </script>
 
 <style scoped lang="scss">
@@ -38,7 +38,9 @@ export default {
     font-size: $base_logo_title_fontSize;
     margin-left: 5px;
     white-space: nowrap; /* 防止文字换行 */
-    transition: opacity 0.3s, width 0.3s; /* 平滑的过渡效果 */
+    transition:
+      opacity 0.3s,
+      width 0.3s; /* 平滑的过渡效果 */
   }
 
   .hidden {

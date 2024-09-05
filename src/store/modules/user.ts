@@ -14,7 +14,7 @@ const useUserStore = defineStore('User', {
   state: (): UserState => {
     return {
       token: GET_TOKEN(), // 用户唯一标识token
-      menuRoutes: constantRoute
+      menuRoutes: constantRoute,
     }
   },
   //异步|逻辑的地方
