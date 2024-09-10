@@ -1,17 +1,17 @@
 <template>
   <div class="tabbar_right">
-    <el-button size="small" icon="Refresh" circle></el-button>
-    <el-button size="small" icon="FullScreen" circle></el-button>
+    <el-button size="small" icon="Refresh" circle @click="updateRefresh"></el-button>
+    <el-button size="small" icon="FullScreen" circle @click="fullScreen"></el-button>
     <el-button size="small" icon="Setting" circle></el-button>
     <img
-      src="../../../../public/logo.png"
+      :src="userStore.avatar"
       alt=""
-      style="width: 24px; height: 24px; margin: 0 10px"
+      style="width: 36px; height: 36px; margin: 0 10px"
     />
     <!-- 下拉菜单 -->
     <el-dropdown>
       <span class="el-dropdown-link">
-        admin
+        {{ userStore.username }}
         <el-icon class="el-icon--right">
           <arrow-down />
         </el-icon>
@@ -19,14 +19,54 @@
 
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item>退出登录</el-dropdown-item>
+          <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+// 引入用户仓库
+import useUserStore from '@/store/modules/user';
+// 引入setting小仓库
+import useLayoutSettingStore from '@/store/modules/setting';
+// 引入路由器
+import { useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
+
+let userStore = useUserStore();
+let layoutSettingStore = useLayoutSettingStore();
+let $router = useRouter();
+let $route = useRoute();
+
+// 刷新按钮回调
+const updateRefresh = () => {
+  layoutSettingStore.refresh = !layoutSettingStore.refresh
+}
+// 全屏点击按钮回调
+const fullScreen = () => {
+  console.log(document.fullscreenElement);
+  // DOM对象的一个属性：可以用来判断当前是不是全屏模式[全屏：true，不是全屏：false]
+  let full = document.fullscreenElement
+  // 如果不是全屏则切换为全屏模式
+  if(!full){
+    // 文档根节点的方法requestFullscreen，实现全屏模式
+    document.documentElement.requestFullscreen();
+  }else{
+    // 退出全屏模式
+    document.exitFullscreen()
+  }
+}
+// 退出登录按钮回调
+const logout = () => {
+  // 第一件事情：需要向服务器发请求[退出登录接口]
+  // 第二件事情：仓库当中关于用于相关的数据情况[token|username|avatar]
+  userStore.userLogout();
+  // 跳转到登录页面
+  $router.push({path: '/login', query:{redirect: $route.path}});
+}
+</script>
 
 <script lang="ts">
 export default {

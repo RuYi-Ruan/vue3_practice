@@ -1,6 +1,5 @@
 //对外暴露配置路由(常量路由):全部用户都可以访问到的路由
 export const constantRoute = [
-
   //登录
   {
     path: '/login',
@@ -29,10 +28,10 @@ export const constantRoute = [
         meta: {
           title: '首页',
           hidden: false,
-          icon: 'HomeFilled'
-        }
-      }
-    ]
+          icon: 'HomeFilled',
+        },
+      },
+    ],
   },
 
   //404
@@ -43,7 +42,7 @@ export const constantRoute = [
     meta: {
       title: '404',
       hidden: true,
-      icon: 'DocumentDelete'
+      icon: 'DocumentDelete',
     },
   },
 
@@ -55,7 +54,7 @@ export const constantRoute = [
     meta: {
       title: '任意路由',
       hidden: true,
-      icon: 'DataLine'
+      icon: 'DataLine',
     },
   },
   // 数据大屏
@@ -66,8 +65,8 @@ export const constantRoute = [
     meta: {
       title: '数据大屏',
       hidden: false,
-      icon: 'DataAnalysis'
-    }
+      icon: 'DataAnalysis',
+    },
   },
   // 权限管理
   {
@@ -77,7 +76,7 @@ export const constantRoute = [
     meta: {
       title: '权限管理',
       hidden: false,
-      icon: 'Key'
+      icon: 'Key',
     },
     redirect: '/acl/user',
     children: [
@@ -88,8 +87,8 @@ export const constantRoute = [
         meta: {
           title: '用户管理',
           hidden: false,
-          icon: 'User'
-        }
+          icon: 'User',
+        },
       },
       {
         path: '/acl/role',
@@ -98,8 +97,8 @@ export const constantRoute = [
         meta: {
           title: '角色管理',
           hidden: false,
-          icon: 'UserFilled'
-        }
+          icon: 'UserFilled',
+        },
       },
       {
         path: '/acl/permission',
@@ -108,10 +107,10 @@ export const constantRoute = [
         meta: {
           title: '菜单管理',
           hidden: false,
-          icon: 'Management'
-        }
-      }
-    ]
+          icon: 'Management',
+        },
+      },
+    ],
   },
 
   // 商品管理
@@ -122,7 +121,7 @@ export const constantRoute = [
     meta: {
       title: '商品管理',
       hidden: false,
-      icon: 'Goods'
+      icon: 'Goods',
     },
     redirect: '/product/brand',
     children: [
@@ -133,8 +132,8 @@ export const constantRoute = [
         meta: {
           title: '品牌管理',
           hidden: false,
-          icon: 'Trophy'
-        }
+          icon: 'Trophy',
+        },
       },
       {
         path: '/product/attribute',
@@ -143,8 +142,8 @@ export const constantRoute = [
         meta: {
           title: '属性管理',
           hidden: false,
-          icon: 'Coin'
-        }
+          icon: 'Coin',
+        },
       },
       {
         path: '/product/spu',
@@ -153,8 +152,8 @@ export const constantRoute = [
         meta: {
           title: 'SPU管理',
           hidden: false,
-          icon: 'ShoppingCart'
-        }
+          icon: 'ShoppingCart',
+        },
       },
       {
         path: '/product/sku',
@@ -163,9 +162,9 @@ export const constantRoute = [
         meta: {
           title: 'SKU管理',
           hidden: false,
-          icon: 'ShoppingTrolley'
-        }
-      }
-    ]
-  }
+          icon: 'ShoppingTrolley',
+        },
+      },
+    ],
+  },
 ]

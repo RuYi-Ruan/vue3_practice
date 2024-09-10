@@ -22,7 +22,9 @@
     "@element-plus/icons-vue": "^2.3.1",
     "axios": "^1.7.7",
     "element-plus": "^2.8.1",
+    "nprogress": "^0.2.0",
     "pinia": "^2.2.2",
+    "progress": "^2.0.3",
     "vue": "^3.4.37",
     "vue-router": "^4.4.3"
   },
@@ -32,6 +34,7 @@
     "@commitlint/config-conventional": "^19.4.1",
     "@eslint/js": "^9.9.1",
     "@types/axios": "^0.14.0",
+    "@types/nprogress": "^0.2.3",
     "@vitejs/plugin-vue": "^5.1.2",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",

@@ -54,14 +54,16 @@ import { reactive, ref } from 'vue'
 // 引入用户相关的小仓库
 import useUserStroe from '@/store/modules/user'
 import { loginFormData } from '@/api/user/type'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute} from 'vue-router'
 import { ElNotification } from 'element-plus'
 import { get_cur_time } from '@/utils/time'
 
 // 获取el-form组件爱你
 let loginForms = ref()
-// 获取路由器
+// 获取路由器对象
 let $router = useRouter()
+// 获取路由对象
+let $route = useRoute()
 // 定义变量控制按钮加载效果
 let loading = ref(false)
 const userStore = useUserStroe()
@@ -83,7 +85,9 @@ const login = async () => {
     // 保证登录成功
     await userStore.userLogin(loginForm)
     // 通过编程式导航跳转到数据首页
-    $router.push('/')
+    // 判断登录的时刻，路由路径当中是否有query参数，如果有就往query参数跳转，没有则跳回首页
+    let redirect: any = $route.query.redirect
+    $router.push({path: redirect || '/'})
     // 登陆成功提示信息
     ElNotification({
       type: 'success',

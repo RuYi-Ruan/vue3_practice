@@ -7,9 +7,14 @@
     <!-- 左侧面包屑 -->
     <el-breadcrumb separator-icon="ArrowRight">
       <!-- 面包屑动态展示路由名字与标题 -->
-      <el-breadcrumb-item v-for="(item, index) in $route.matched" :key="index" v-show="item.meta.title" :to="item.path">
+      <el-breadcrumb-item
+        v-for="(item, index) in $route.matched"
+        :key="index"
+        v-show="item.meta.title"
+        :to="item.path"
+      >
         <!-- 图标 -->
-        <el-icon style="margin: 2px;">
+        <el-icon style="margin: 2px">
           <component :is="item.meta.icon"></component>
         </el-icon>
         <!-- 标题 -->
@@ -21,7 +26,7 @@
 
 <script setup lang="ts">
 import useLayoutSettingStore from '@/store/modules/setting'
-import { useRoute } from 'vue-router';
+import { useRoute } from 'vue-router'
 let layoutSettingStore = useLayoutSettingStore()
 
 let $route = useRoute()
