@@ -102,7 +102,6 @@ export default {
     left: $base_menu_width; /* 初始左侧边栏宽度 */
     width: calc(100% - $base_menu_width);
     height: calc(100vh - $base_tabbar_height);
-    background-color: bisque;
     padding: 20px;
     overflow: auto;
     transition:
