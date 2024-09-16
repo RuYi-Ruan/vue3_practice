@@ -64,6 +64,7 @@ export default {
   position: relative;
   width: 100%;
   height: 100vh;
+  background-color: hsl(294deg 100% 98.04%);
 
   .layout_slider {
     width: $base_menu_width;

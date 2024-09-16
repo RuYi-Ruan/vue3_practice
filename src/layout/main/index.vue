@@ -40,8 +40,8 @@ export default {
 }
 .fade-scale-enter-active {
   transition:
-    opacity 0.4s ease-out,
-    transform 0.4s ease-out; /* 平滑过渡 */
+    opacity 0.2s ease-out,
+    transform 0.2s ease-out; /* 平滑过渡 */
 }
 .fade-scale-enter-to {
   opacity: 1;
@@ -54,8 +54,8 @@ export default {
 }
 .fade-scale-leave-active {
   transition:
-    opacity 0.3s ease-in,
-    transform 0.3s ease-in; /* 离开时动画略快 */
+    opacity 0.15s ease-in,
+    transform 0.15s ease-in; /* 离开时动画略快 */
 }
 .fade-scale-leave-to {
   opacity: 0;

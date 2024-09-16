@@ -10,7 +10,7 @@ enum API {
   // 修改已有品牌的接口
   UPDATETRADEMARK_URL = '/admin/product/baseTrademark/update',
   // 删除已有品牌的接口
-  DELETE_URL = '/admin/product/baseTrademark/remove/'
+  DELETE_URL = '/admin/product/baseTrademark/remove/',
 }
 // 获取已有品牌的接口方法
 // page：获取第几页--默认第一页
@@ -24,12 +24,13 @@ export const reqHasTrademark = (page: number, limit: number) =>
 export const reqAddOrUpdateTrademark = (data: TradeMark) => {
   // 含有id属性，则为修改已有品牌
   if (data.id) {
-    return request.put<any, any>(API.UPDATETRADEMARK_URL, data);
+    return request.put<any, any>(API.UPDATETRADEMARK_URL, data)
   } else {
     // 新增品牌
-    return request.post<any, any>(API.ADDTRADEMARK_URL, data);
+    return request.post<any, any>(API.ADDTRADEMARK_URL, data)
   }
 }
 
 // 删除已有品牌
-export const reqDeleteTrademark = (id: number) => request.delete<any, any>(API.DELETE_URL + id);
+export const reqDeleteTrademark = (id: number) =>
+  request.delete<any, any>(API.DELETE_URL + id)
