@@ -44,4 +44,3 @@ export type AttrList = Attr[]
 export interface AttrResponseData extends ResponseData {
   data: AttrList
 }
-

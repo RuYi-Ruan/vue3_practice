@@ -15,7 +15,7 @@ enum API {
   // 添加或修改已有属性值的接口
   ADDORUPDATEATTR_URL = '/admin/product/saveAttrInfo',
   // 删除已有属性的接口
-  DELETEATTR_URL = '/admin/product/deleteAttr/'
+  DELETEATTR_URL = '/admin/product/deleteAttr/',
 }
 
 // 暴露接口的方法
@@ -36,7 +36,8 @@ export const reqAttr = (
   )
 
 // 新增或修改已有属性接口
-export const reqAddOrUpdateAttr = (data: Attr) => request.post<any, any>(API.ADDORUPDATEATTR_URL, data);
+export const reqAddOrUpdateAttr = (data: Attr) =>
+  request.post<any, any>(API.ADDORUPDATEATTR_URL, data)
 
 // 删除已有属性接口
 export const reqRemoveAttr = (attrId: number) =>
