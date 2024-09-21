@@ -43,11 +43,13 @@ export interface AllTradeMark extends ResponseData {
 // 商品图片ts类型
 export interface SpuImage {
   id?: number
-  imgName: string
-  imgUrl: string
+  imgName?: string
+  imgUrl?: string
   spuId?: number
   createTime?: string
   updateTime?: string
+  name?: string,
+  url?: string
 }
 // 已有SPU照片墙数据类型
 export interface SpuHasImg extends ResponseData {
@@ -59,7 +61,7 @@ export interface SaleAttrValue {
   createTime?: null
   updateTime?: null
   spuId?: number
-  baseSaleAttrId: number
+  baseSaleAttrId: number | string
   saleAttrValueName: string
   saleAttrName?: string
   isChecked?: null
@@ -71,12 +73,14 @@ export type SpuSaleAttrValueList = SaleAttrValue[]
 // 销售属性对象ts类型
 export interface SaleAttr {
   id?: number
-  createTime: null
-  updateTime: null
-  spuId: number
-  baseSaleAttrId: number
-  saleAttrName: string
+  createTime?: null
+  updateTime?: null
+  spuId?: number
+  baseSaleAttrId: number|string
+  saleAttrName?: string
   spuSaleAttrValueList: SpuSaleAttrValueList
+  flag?:boolean
+  saleAttrValue?: string
 }
 
 // SPU已有的销售属性接口返回数据ts类型
