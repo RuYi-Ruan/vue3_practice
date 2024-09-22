@@ -45,7 +45,7 @@ export const reqSpuImageList = (spuId: number) =>
 export const reqSpuHasSale = (spuId: number) =>
   request.get<any, SaleAttrResponseData>(API.SPUSALEATTR_URL + spuId)
 // 获取全部销售属性
-export const reaAllSale = () =>
+export const reqAllSale = () =>
   request.get<any, HasSaleAttrResponseData>(API.ALLSALE_URL)
 // 添加一个新的SPU或修改一个已有的SPU
 export const reqAddOrUpdateSpu = (data: SpuData) => {

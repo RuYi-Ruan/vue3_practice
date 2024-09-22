@@ -31,7 +31,7 @@ export interface AttrValue {
 export type AttrValueList = AttrValue[]
 // 属性对象的ts类型
 export interface Attr {
-  id?: number
+  id?: number | string
   attrName: ''
   categoryId: number | string
   categoryLevel: number

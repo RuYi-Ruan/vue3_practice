@@ -7,13 +7,13 @@ export interface ResponseData {
 
 // SPU数据的ts类型：需要更改
 export interface SpuData {
-  id?: number
+  id?: number | string
   spuName: string
   description: string
   category3Id: string | number
   tmId: number | string
-  spuSaleAttrList: null | SaleAttr[]
-  spuImageList: null | SpuImage[]
+  spuSaleAttrList:  SaleAttr[]
+  spuImageList: SpuImage[]
 }
 
 // 数组：元素都是已有的spu数据类型
@@ -48,7 +48,7 @@ export interface SpuImage {
   spuId?: number
   createTime?: string
   updateTime?: string
-  name?: string,
+  name?: string
   url?: string
 }
 // 已有SPU照片墙数据类型
@@ -76,10 +76,10 @@ export interface SaleAttr {
   createTime?: null
   updateTime?: null
   spuId?: number
-  baseSaleAttrId: number|string
+  baseSaleAttrId: number | string
   saleAttrName?: string
   spuSaleAttrValueList: SpuSaleAttrValueList
-  flag?:boolean
+  flag?: boolean
   saleAttrValue?: string
 }
 
