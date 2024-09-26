@@ -101,27 +101,27 @@ export interface HasSaleAttrResponseData extends ResponseData {
 
 // 平台属性
 export interface platformAttr {
-  attrId: number | string,
+  attrId: number | string
   valueId: number | string
 }
 
 // 销售属性
 export interface saleAttr {
-  saleAttrId: number | string,
+  saleAttrId: number | string
   saleAttrValueId: number | string
 }
 
 // SKU
 export interface SkuData {
-  category3ID: string | number,
-  spuId: string | number,
-  tmId: string | number,
-  skuName: string,
-  price: string | number,
-  weight: string | number,
-  skuDesc: string,
-  skuAttrValueList?: platformAttr[],
-  skuSaleAttrValueList?: saleAttr[],
+  category3ID: string | number
+  spuId: string | number
+  tmId: string | number
+  skuName: string
+  price: string | number
+  weight: string | number
+  skuDesc: string
+  skuAttrValueList?: platformAttr[]
+  skuSaleAttrValueList?: saleAttr[]
   skuDefaultImg: string
 }
 
@@ -129,4 +129,3 @@ export interface SkuData {
 export interface SkuInfoData extends ResponseData {
   data: SkuData[]
 }
-
