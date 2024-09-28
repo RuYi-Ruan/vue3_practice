@@ -114,7 +114,7 @@ const check_space = (_rule: any, value: any, callback: any) => {
     // 检查当前输入的用户名中是否包含空格
     // 如果包含空格，则调用 callback 函数并传入一个新的 Error 对象作为参数
     // Error 对象的消息为 '用户名中不能含有空格'
-    callback(new Error('用户名中不能含有空格'))
+    callback(new Error('不能含有空格'))
   } else {
     // 如果用户名中不包含空格，表示校验通过
     // 调用 callback 函数且不传入参数，表示没有错误
@@ -130,12 +130,12 @@ const check_space = (_rule: any, value: any, callback: any) => {
 const rules = {
   // 需要校验的字段
   username: [
-    { min: 4, max: 10, message: '字数限制在4-10之间', trigger: 'change' },
+    { min: 5, max: 15, message: '字数限制在5-15之间', trigger: 'change' },
     { validator: check_space, trigger: 'change' },
   ],
   password: [
     { required: true, message: '请输入密码', trigger: 'blur' },
-    { min: 6, max: 15, message: '密码至少需要6位', trigger: 'change' },
+    { min: 6, max: 15, message: '密码位数在6-15之间', trigger: 'change' },
     { validator: check_space, trigger: 'change' },
   ],
 }

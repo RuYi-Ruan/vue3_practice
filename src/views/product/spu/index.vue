@@ -212,7 +212,7 @@ const addSku = (row: SpuData) => {
 // 查看已有SPU的商品列表
 const showSku = async (row: SpuData) => {
   let result: SkuInfoData = await reqSkuList(row.id as number)
-  
+
   if (result.code == 200) {
     skuArr.value = result.data
     // 将对话框展示出来

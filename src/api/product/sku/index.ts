@@ -12,7 +12,7 @@ enum API {
   // 获取商品详情的接口
   SKUDETAIL_URL = '/admin/product/getSkuInfo/',
   // 删除商品接口
-  DELETESKU_URL = '/admin/product/deleteSku/'
+  DELETESKU_URL = '/admin/product/deleteSku/',
 }
 
 // 获取SKU方法
@@ -25,8 +25,8 @@ export const reqOnSaleSku = (skuId: number) =>
 export const reqCalcelSaleSku = (skuId: number) =>
   request.get<any, any>(API.ONSALE_URL + skuId)
 // 获取商品详情的接口
-export const reqSkuDetail = (skuId: number) => 
+export const reqSkuDetail = (skuId: number) =>
   request.get<any, skuDetailData>(API.SKUDETAIL_URL + skuId)
 // 删除已有商品
-export const reqRemoveSku = (spuId: number) => 
+export const reqRemoveSku = (spuId: number) =>
   request.delete<any, any>(API.DELETESKU_URL + spuId)

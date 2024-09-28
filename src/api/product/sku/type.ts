@@ -55,6 +55,6 @@ export interface SkuResponseData extends ResponseData {
 }
 
 // 商品详情对象ts类型
-export interface skuDetailData extends ResponseData{
+export interface skuDetailData extends ResponseData {
   data: SkuData
 }

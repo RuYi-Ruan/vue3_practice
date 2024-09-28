@@ -17,19 +17,12 @@
             @click="updateIsSale(row)"></el-button>
           <el-button type="warning" icon="Edit"></el-button>
           <el-button type="info" icon="InfoFilled" @click="showSku(row)"></el-button>
-          <el-popconfirm 
-            confirm-button-text="OK"  
-            icon="InfoFilled"
-            icon-color="#626AEF" 
-            :title="`确定要删除${row.skuName}吗？`" 
-            @confirm="deleteSku(row)"
-            width="200px"
-          >
+          <el-popconfirm confirm-button-text="OK" icon="InfoFilled" icon-color="#626AEF"
+            :title="`确定要删除${row.skuName}吗？`" @confirm="deleteSku(row)" width="200px">
             <template #reference>
               <el-button type="danger" icon="Delete"></el-button>
             </template>
           </el-popconfirm>
-
         </template>
       </el-table-column>
     </el-table>
@@ -43,38 +36,40 @@
         <h4>商品信息</h4>
       </template>
       <template #default>
-        <el-row style="margin: 10px 0;">
+        <el-row style="margin: 10px 0">
           <el-col :span="6">名称</el-col>
           <el-col :span="18">{{ skuDetail.skuName }}</el-col>
         </el-row>
-        <el-row style="margin: 10px 0;">
+        <el-row style="margin: 10px 0">
           <el-col :span="6">描述</el-col>
           <el-col :span="18">{{ skuDetail.skuDesc }}</el-col>
         </el-row>
-        <el-row style="margin: 10px 0;">
+        <el-row style="margin: 10px 0">
           <el-col :span="6">价格</el-col>
           <el-col :span="18">{{ skuDetail.price }}</el-col>
         </el-row>
-        <el-row style="margin: 10px 0;">
+        <el-row style="margin: 10px 0">
           <el-col :span="6">平台属性</el-col>
           <el-col :span="18">
-            <el-tag style="margin: 5px;" v-for="item in skuDetail.skuAttrValueList" :key="item.id"> {{ item.valueName
-              }}</el-tag>
+            <el-tag style="margin: 5px" v-for="item in skuDetail.skuAttrValueList" :key="item.id">
+              {{ item.valueName }}
+            </el-tag>
           </el-col>
         </el-row>
-        <el-row style="margin: 10px 0;">
+        <el-row style="margin: 10px 0">
           <el-col :span="6">销售属性</el-col>
           <el-col :span="18">
-            <el-tag style="margin: 5px;" v-for="item in skuDetail.skuSaleAttrValueList" :key="item.id">{{
-              item.saleAttrValueName }}</el-tag>
+            <el-tag style="margin: 5px" v-for="item in skuDetail.skuSaleAttrValueList" :key="item.id">
+              {{ item.saleAttrValueName }}
+            </el-tag>
           </el-col>
         </el-row>
-        <el-row style="margin: 10px 0;">
+        <el-row style="margin: 10px 0">
           <el-col :span="6">商品图片</el-col>
           <el-col :span="18">
             <el-carousel :interval="4000" type="card" height="250px">
               <el-carousel-item v-for="item in skuDetail.skuImageList" :key="item.id">
-                <img :src="item.imgUrl" alt="商品图片" style="width: 100%; height: 100%;">
+                <img :src="item.imgUrl" alt="商品图片" style="width: 100%; height: 100%" />
               </el-carousel-item>
             </el-carousel>
           </el-col>
@@ -85,9 +80,15 @@
 </template>
 
 <script setup lang="ts">
-import { reqCalcelSaleSku, reqOnSaleSku, reqRemoveSku, reqSkuDetail, reqSkuInfo } from '@/api/product/sku'
+import {
+  reqCalcelSaleSku,
+  reqOnSaleSku,
+  reqRemoveSku,
+  reqSkuDetail,
+  reqSkuInfo,
+} from '@/api/product/sku'
 import { SkuData, skuDetailData, SkuResponseData } from '@/api/product/sku/type'
-import { ElMessage } from 'element-plus';
+import { ElMessage } from 'element-plus'
 import { onMounted, ref } from 'vue'
 let pageNo = ref<number>(1)
 let pageSize = ref<number>(10)
@@ -105,7 +106,7 @@ let skuDetail = ref<SkuData>({
   price: '',
   weight: '',
   skuDesc: '',
-  skuDefaultImg: ''
+  skuDefaultImg: '',
 })
 // 组件挂载完毕
 onMounted(() => {
@@ -118,7 +119,7 @@ const getHasSku = async (pager = 1) => {
 
   if (result.code == 200) {
     skuArr.value = result.data.records
-    total.value = result.data.total;
+    total.value = result.data.total
   }
 }
 // pageSize变化回调
@@ -151,35 +152,35 @@ const updateIsSale = async (row: SkuData) => {
 // 查看信息按钮回调
 const showSku = async (row: SkuData) => {
   // 展示抽屉组件
-  drawer.value = true;
+  drawer.value = true
   // 获取已有商品详情数据
-  let result: skuDetailData = await reqSkuDetail(row.id as number);
+  let result: skuDetailData = await reqSkuDetail(row.id as number)
   if (result.code == 200) {
-    skuDetail.value = result.data;
+    skuDetail.value = result.data
   } else {
     ElMessage({
       type: 'error',
-      message: '获取商品详情失败'
+      message: '获取商品详情失败',
     })
-    return;
+    return
   }
 }
 // 删除已有商品
 const deleteSku = async (row: SkuData) => {
-  let result = await reqRemoveSku(row.id as number);
+  let result = await reqRemoveSku(row.id as number)
   if (result.code == 200) {
     ElMessage({
       type: 'success',
-      message: '删除成功'
+      message: '删除成功',
     })
     // 重新获取已有商品数据
-    getHasSku(skuArr.value.length > 1? pageNo.value : pageNo.value - 1);
-  }else {
+    getHasSku(skuArr.value.length > 1 ? pageNo.value : pageNo.value - 1)
+  } else {
     ElMessage({
       type: 'error',
-      message: '删除失败'
+      message: '删除失败',
     })
-    return;
+    return
   }
 }
 </script>
@@ -192,8 +193,6 @@ const deleteSku = async (row: SkuData) => {
   margin: 0;
   text-align: center;
 }
-
-
 
 .el-carousel__item:nth-child(2n) {
   background-color: #99a9bf;
@@ -253,5 +252,4 @@ const deleteSku = async (row: SkuData) => {
   width: 100%;
   height: 100%;
 }
-
 </style>

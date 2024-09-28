@@ -1,22 +1,14 @@
 <template>
   <div class="layout_container">
     <!-- 左侧菜单 -->
-    <div
-      class="layout_slider"
-      :class="{ fold: layoutSettingStore.fold ? true : false }"
-    >
+    <div class="layout_slider" :class="{ fold: layoutSettingStore.fold ? true : false }">
       <Logo />
       <!-- 展示菜单 -->
       <!-- 滚动组件 -->
       <el-scrollbar class="scrollbar">
         <!-- 菜单组件 -->
-        <el-menu
-          :collapse="layoutSettingStore.fold ? true : false"
-          :default-active="$route.path"
-          background-color="#001529"
-          text-color="white"
-          active-text-color="#bf528f"
-        >
+        <el-menu :collapse="layoutSettingStore.fold ? true : false" :default-active="$route.path"
+          background-color="#001529" text-color="white" active-text-color="#bf528f">
           <!-- 根据路由动态生成菜单 -->
           <Menu :menuList="userStore.menuRoutes"></Menu>
         </el-menu>
@@ -70,7 +62,8 @@ export default {
     width: $base_menu_width;
     height: 100vh;
     background-color: $base_menu_background;
-    transition: width 0.5s; /* 过渡效果 */
+    transition: width 0.5s;
+    /* 过渡效果 */
 
     .scrollbar {
       width: 100%;
@@ -82,43 +75,52 @@ export default {
     }
 
     &.fold {
-      width: $base_menu_min_width; /* 折叠时的宽度 */
+      width: $base_menu_min_width;
+      /* 折叠时的宽度 */
     }
   }
 
   .layout_tabbar {
     position: fixed;
     top: 0;
-    left: $base_menu_width; /* 初始左侧边栏宽度 */
+    left: $base_menu_width;
+    /* 初始左侧边栏宽度 */
     width: calc(100% - $base_menu_width);
     height: $base_tabbar_height;
     transition:
       left 0.5s,
-      width 0.5s; /* 过渡效果 */
+      width 0.5s;
+    /* 过渡效果 */
   }
 
   .layout_main {
     position: absolute;
     top: $base_tabbar_height;
-    left: $base_menu_width; /* 初始左侧边栏宽度 */
+    left: $base_menu_width;
+    /* 初始左侧边栏宽度 */
     width: calc(100% - $base_menu_width);
     height: calc(100vh - $base_tabbar_height);
     padding: 20px;
     overflow: auto;
     transition:
       left 0.5s,
-      width 0.5s; /* 过渡效果 */
+      width 0.5s;
+    /* 过渡效果 */
   }
 
   /* 当侧边栏折叠时，调整布局 */
-  .layout_slider.fold ~ .layout_tabbar {
-    left: $base_menu_min_width; /* 折叠后的左侧边栏宽度 */
-    width: calc(100% - $base_menu_min_width); /* 调整宽度 */
+  .layout_slider.fold~.layout_tabbar {
+    left: $base_menu_min_width;
+    /* 折叠后的左侧边栏宽度 */
+    width: calc(100% - $base_menu_min_width);
+    /* 调整宽度 */
   }
 
-  .layout_slider.fold ~ .layout_main {
-    left: $base_menu_min_width; /* 折叠后的左侧边栏宽度 */
-    width: calc(100% - $base_menu_min_width); /* 调整宽度 */
+  .layout_slider.fold~.layout_main {
+    left: $base_menu_min_width;
+    /* 折叠后的左侧边栏宽度 */
+    width: calc(100% - $base_menu_min_width);
+    /* 调整宽度 */
   }
 }
 </style>
