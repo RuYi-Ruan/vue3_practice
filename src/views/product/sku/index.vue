@@ -1,24 +1,68 @@
 <template>
   <div>
     <el-table border style="margin: 10px 0" :data="skuArr">
-      <el-table-column label="序号" type="index" align="center" width="80px"></el-table-column>
-      <el-table-column label="名称" align="center" show-overflow-tooltip width="150px" prop="skuName"></el-table-column>
-      <el-table-column label="描述" align="center" show-overflow-tooltip width="150px" prop="skuDesc"></el-table-column>
+      <el-table-column
+        label="序号"
+        type="index"
+        align="center"
+        width="80px"
+      ></el-table-column>
+      <el-table-column
+        label="名称"
+        align="center"
+        show-overflow-tooltip
+        width="150px"
+        prop="skuName"
+      ></el-table-column>
+      <el-table-column
+        label="描述"
+        align="center"
+        show-overflow-tooltip
+        width="150px"
+        prop="skuDesc"
+      ></el-table-column>
       <el-table-column label="图片" align="center" width="150px">
         <template #="{ row, $index }">
-          <img :src="row.skuDefaultImg" :alt="row.skuDesc" style="width: 100%; height: 80px" />
+          <img
+            :src="row.skuDefaultImg"
+            :alt="row.skuDesc"
+            style="width: 100%; height: 80px"
+          />
         </template>
       </el-table-column>
-      <el-table-column label="重量" align="center" width="150px" prop="weight"></el-table-column>
-      <el-table-column label="价格" align="center" width="150px" prop="price"></el-table-column>
+      <el-table-column
+        label="重量"
+        align="center"
+        width="150px"
+        prop="weight"
+      ></el-table-column>
+      <el-table-column
+        label="价格"
+        align="center"
+        width="150px"
+        prop="price"
+      ></el-table-column>
       <el-table-column label="操作" align="center" fixed="right" width="300px">
         <template #="{ row, $index }">
-          <el-button :type="row.isSale == 1 ? 'primary' : 'success'" :icon="row.isSale == 1 ? 'Bottom' : 'Top'"
-            @click="updateIsSale(row)"></el-button>
+          <el-button
+            :type="row.isSale == 1 ? 'primary' : 'success'"
+            :icon="row.isSale == 1 ? 'Bottom' : 'Top'"
+            @click="updateIsSale(row)"
+          ></el-button>
           <el-button type="warning" icon="Edit"></el-button>
-          <el-button type="info" icon="InfoFilled" @click="showSku(row)"></el-button>
-          <el-popconfirm confirm-button-text="OK" icon="InfoFilled" icon-color="#626AEF"
-            :title="`确定要删除${row.skuName}吗？`" @confirm="deleteSku(row)" width="200px">
+          <el-button
+            type="info"
+            icon="InfoFilled"
+            @click="showSku(row)"
+          ></el-button>
+          <el-popconfirm
+            confirm-button-text="OK"
+            icon="InfoFilled"
+            icon-color="#626AEF"
+            :title="`确定要删除${row.skuName}吗？`"
+            @confirm="deleteSku(row)"
+            width="200px"
+          >
             <template #reference>
               <el-button type="danger" icon="Delete"></el-button>
             </template>
@@ -27,9 +71,17 @@
       </el-table-column>
     </el-table>
     <!-- 分页器组件 -->
-    <el-pagination v-model:current-page="pageNo" v-model:page-size="pageSize" :page-sizes="[10, 20, 30, 40]"
-      :background="true" layout="prev, pager, next, jumper, ->, total, sizes" :total="total"
-      style="margin: 10px 0; text-align: right" @current-change="getHasSku" @size-change="handler"></el-pagination>
+    <el-pagination
+      v-model:current-page="pageNo"
+      v-model:page-size="pageSize"
+      :page-sizes="[10, 20, 30, 40]"
+      :background="true"
+      layout="prev, pager, next, jumper, ->, total, sizes"
+      :total="total"
+      style="margin: 10px 0; text-align: right"
+      @current-change="getHasSku"
+      @size-change="handler"
+    ></el-pagination>
     <!-- 抽屉组件：展示商品详情 -->
     <el-drawer v-model="drawer" close-on-press-escape size="666">
       <template #title>
@@ -51,7 +103,11 @@
         <el-row style="margin: 10px 0">
           <el-col :span="6">平台属性</el-col>
           <el-col :span="18">
-            <el-tag style="margin: 5px" v-for="item in skuDetail.skuAttrValueList" :key="item.id">
+            <el-tag
+              style="margin: 5px"
+              v-for="item in skuDetail.skuAttrValueList"
+              :key="item.id"
+            >
               {{ item.valueName }}
             </el-tag>
           </el-col>
@@ -59,7 +115,11 @@
         <el-row style="margin: 10px 0">
           <el-col :span="6">销售属性</el-col>
           <el-col :span="18">
-            <el-tag style="margin: 5px" v-for="item in skuDetail.skuSaleAttrValueList" :key="item.id">
+            <el-tag
+              style="margin: 5px"
+              v-for="item in skuDetail.skuSaleAttrValueList"
+              :key="item.id"
+            >
               {{ item.saleAttrValueName }}
             </el-tag>
           </el-col>
@@ -68,8 +128,15 @@
           <el-col :span="6">商品图片</el-col>
           <el-col :span="18">
             <el-carousel :interval="4000" type="card" height="250px">
-              <el-carousel-item v-for="item in skuDetail.skuImageList" :key="item.id">
-                <img :src="item.imgUrl" alt="商品图片" style="width: 100%; height: 100%" />
+              <el-carousel-item
+                v-for="item in skuDetail.skuImageList"
+                :key="item.id"
+              >
+                <img
+                  :src="item.imgUrl"
+                  alt="商品图片"
+                  style="width: 100%; height: 100%"
+                />
               </el-carousel-item>
             </el-carousel>
           </el-col>
