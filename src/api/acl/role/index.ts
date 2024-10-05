@@ -14,7 +14,7 @@ enum API {
   // 给相应职位分配权限
   ASSINGPERMISSION_URL = '/admin/acl/permission/doAssign/?',
   // 删除角色
-  DELETEROLE_URL = '/admin/acl/role/remove/'
+  DELETEROLE_URL = '/admin/acl/role/remove/',
 }
 
 // 获取全部职位请求
@@ -38,7 +38,9 @@ export const reqGetAllPermission = (roleId: number) =>
 
 // 给指定职位分配权限请求
 export const reqAssignPermission = (roleId: number, permissionId: number[]) =>
-  request.post<any, any>(API.ASSINGPERMISSION_URL + `roleId=${roleId}&permissionId=${permissionId}`);
+  request.post<any, any>(
+    API.ASSINGPERMISSION_URL + `roleId=${roleId}&permissionId=${permissionId}`,
+  )
 
 // 删除角色请求
 export const reqDeleteRole = (roleId: number) =>

@@ -29,10 +29,11 @@ const useUserStore = defineStore('User', {
     async userLogin(data: loginFormData) {
       //登录请求
       const result: loginResponseData = await reqLogin(data)
-
+      console.log(result);
+      
       //登录请求:成功200->token
       //登录请求:失败201->登录失败错误的信息
-      if (result.code == 200) {
+      if (result.code == 200) {   
         //pinia仓库存储一下token
         this.token = result.data as string
         // 本地存储持久化存储一份

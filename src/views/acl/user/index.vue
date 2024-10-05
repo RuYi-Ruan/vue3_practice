@@ -123,8 +123,7 @@
   <el-drawer v-model="drawer" :title="msg" :size="'40%'">
     <template #default>
       <el-form
-        l
-        abel-width="100px"
+        label-width="100px"
         class="drawer-form"
         :model="userParams"
         :rules="rules"

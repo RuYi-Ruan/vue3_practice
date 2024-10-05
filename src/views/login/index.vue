@@ -99,7 +99,7 @@ const login = async () => {
     // 登陆失败提示信息
     ElNotification({
       type: 'error',
-      message: (error as Error).message,
+      message: '登陆失败',
     })
     loading.value = false
   }
