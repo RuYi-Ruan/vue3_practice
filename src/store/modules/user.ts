@@ -5,12 +5,28 @@ import { reqLogin, reqUserInfo, reqLogout } from '@/api/user'
 import type { UserState } from './types/type'
 import { SET_TOKEN, GET_TOKEN, REMOVE_TOKEN } from '@/utils/token'
 // 引入常量路由
-import { constantRoute } from '@/router/routes'
+import { anyRoute, asyncRoute, constantRoute } from '@/router/routes'
 import {
   loginFormData,
   loginResponseData,
   userInfoResponseData,
 } from '@/api/user/type'
+import router from '@/router'
+// @ts-ignore
+import lodash from 'lodash' 
+
+// 用于过滤当前用户需要过滤的异步路由
+const filterAsyncRoute = (asyncRoute: any, routes: any) => {
+  return asyncRoute.filter((item: any) => {
+    if (routes.includes(item.name)) {
+      if (item.children && item.children.length > 0) {
+        item.children = filterAsyncRoute(item.children, routes);
+      }
+      return true;
+    }
+  })
+
+}
 
 //创建用户小仓库
 const useUserStore = defineStore('User', {
@@ -21,6 +37,8 @@ const useUserStore = defineStore('User', {
       menuRoutes: constantRoute,
       username: '',
       avatar: '',
+      // 存储当前用户的按钮权限
+      buttons: []
     }
   },
   //异步|逻辑的地方
@@ -29,11 +47,9 @@ const useUserStore = defineStore('User', {
     async userLogin(data: loginFormData) {
       //登录请求
       const result: loginResponseData = await reqLogin(data)
-      console.log(result);
-      
       //登录请求:成功200->token
       //登录请求:失败201->登录失败错误的信息
-      if (result.code == 200) {   
+      if (result.code == 200) {
         //pinia仓库存储一下token
         this.token = result.data as string
         // 本地存储持久化存储一份
@@ -50,6 +66,16 @@ const useUserStore = defineStore('User', {
       if (result.code == 200) {
         this.username = result.data.name
         this.avatar = '../src/assets/images/avatar1.gif'
+        this.buttons = result.data.buttons;
+        // 过滤得到当前用户所需的异步路由
+        // 通过深拷贝解决不同用户登录导致的路由覆盖问题
+        let userAsyncRoute = filterAsyncRoute(lodash.cloneDeep(asyncRoute), result.data.routes);
+        // 菜单的数据
+        this.menuRoutes = [...constantRoute, ...userAsyncRoute, ...anyRoute];
+        // 目前路由管理器只有常量路由：将过滤后的异步路由、任意路由动态追加
+        [...userAsyncRoute, ...anyRoute].forEach((route: any) => {
+          router.addRoute(route);
+        })
         return 'ok'
       } else {
         return Promise.reject(new Error(result.message))

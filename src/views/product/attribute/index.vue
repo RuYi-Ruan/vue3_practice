@@ -28,9 +28,9 @@
             prop="attrName"
           ></el-table-column>
           <el-table-column label="属性值名称" align="center">
-            <template #="{ row, $index }">
+            <template #="{ row }">
               <el-tag
-                v-for="(item, index) in row.attrValueList"
+                v-for="(item) in row.attrValueList"
                 :key="item.id"
                 style="margin: 5px"
               >
@@ -40,7 +40,7 @@
           </el-table-column>
           <!-- 修改已有属性操作 -->
           <el-table-column label="操作" width="120px" align="center">
-            <template #="{ row, $index }">
+            <template #="{ row }">
               <el-button
                 size="small"
                 type="warning"
@@ -124,7 +124,7 @@
           </el-table-column>
           <!-- 操作 -->
           <el-table-column label="操作" width="120px" align="cenyer">
-            <template #="{ row, $index }">
+            <template #="{ $index }">
               <el-button
                 type="danger"
                 size="default"

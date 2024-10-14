@@ -12,7 +12,7 @@ export const constantRoute = [
     },
   },
 
-  // layout
+  // layout-首页
   {
     path: '/',
     component: () => import('@/layout/index.vue'),
@@ -46,17 +46,6 @@ export const constantRoute = [
     },
   },
 
-  //任意路由
-  {
-    path: '/:pathMatch(.*)*',
-    redirect: '/404',
-    name: 'Any',
-    meta: {
-      title: '任意路由',
-      hidden: true,
-      icon: 'DataLine',
-    },
-  },
   // 数据大屏
   {
     path: '/screen',
@@ -68,6 +57,11 @@ export const constantRoute = [
       icon: 'DataAnalysis',
     },
   },
+  
+];
+
+// 异步路由: 部分用户可以访问
+export const asyncRoute = [
   // 权限管理
   {
     path: '/acl',
@@ -83,7 +77,7 @@ export const constantRoute = [
       {
         path: '/acl/user',
         component: () => import('@/views/acl/user/index.vue'),
-        name: 'AclUser',
+        name: 'User',
         meta: {
           title: '用户管理',
           hidden: false,
@@ -166,5 +160,20 @@ export const constantRoute = [
         },
       },
     ],
+  }
+];
+
+// 任意路由
+export const anyRoute = [
+  //任意路由
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/404',
+    name: 'Any',
+    meta: {
+      title: '任意路由',
+      hidden: true,
+      icon: 'DataLine',
+    },
   },
 ]

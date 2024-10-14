@@ -11,7 +11,7 @@ nprogress.configure({ showSpinner: false })
 
 // 全局守卫：项目当中任意路由切换都会触发的钩子
 // 全局前置守卫
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to, _from, next) => {
   // to: 你将要访问那个路由
   // from：你从哪个路由而来
   // next: 路由的放行函数
@@ -36,7 +36,9 @@ router.beforeEach(async (to, from, next) => {
         try {
           // 如果没有则等待获取到用户信息然后放行
           await userStore.userInfo()
-          next()
+          // 刷新时如果是异步路由有可能获取到用户信息，但是异步路由还没加载完毕，因此会出现白屏效果
+
+          next({ ...to })
         } catch (error) {
           // token过期：获取不到用户信息 | 用户手动修改本地存储token
           // 退出登录 -> 用户相关的数据清空
@@ -56,7 +58,7 @@ router.beforeEach(async (to, from, next) => {
 })
 
 // 全局后置守卫
-router.afterEach((to, from, next) => {
+router.afterEach((to, _from, _next) => {
   document.title = `${setting.title} - ${to.meta.title}`
   nprogress.done()
 })

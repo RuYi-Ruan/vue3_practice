@@ -19,6 +19,10 @@ import router from './router/index'
 import pinia from './store'
 // 引入路由鉴权文件
 import './permission'
+// 引入暗黑模式
+import 'element-plus/theme-chalk/dark/css-vars.css'
+// 引入自定义指令文件
+import { hasBtnAttr } from './directive/has'
 
 const app = createApp(App)
 app.use(ElementPlus, {
@@ -31,4 +35,5 @@ app.use(ElementPlus)
 app.use(router)
 // 安装pinia
 app.use(pinia)
+hasBtnAttr(app);
 app.mount('#app')

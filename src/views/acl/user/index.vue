@@ -2,18 +2,10 @@
   <el-card>
     <el-form :inline="true" class="form">
       <el-form-item label="用户名" style="margin: 0">
-        <el-input
-          placeholder="请输入用户名"
-          type="text"
-          v-model="keyword"
-        ></el-input>
+        <el-input placeholder="请输入用户名" type="text" v-model="keyword"></el-input>
       </el-form-item>
       <el-form-item style="margin: 0">
-        <el-button
-          type="primary"
-          :disabled="keyword.length > 0 ? false : true"
-          @click="search"
-        >
+        <el-button type="primary" :disabled="keyword.length > 0 ? false : true" @click="search">
           搜索
         </el-button>
         <el-button @click="reset">重置</el-button>
@@ -23,81 +15,29 @@
 
   <el-card style="margin: 10px 0">
     <el-button type="primary" @click="addUser">添加用户</el-button>
-    <el-button
-      type="danger"
-      plain
-      @click="deleteSelectUser"
-      :disabled="selectUserArr.length > 0 ? false : true"
-    >
+    <el-button type="danger" plain @click="deleteSelectUser" :disabled="selectUserArr.length > 0 ? false : true">
       批量删除
     </el-button>
 
-    <el-table
-      style="margin: 10px 0"
-      border
-      :data="userArr"
-      @selection-change="selectChange"
-    >
+    <el-table style="margin: 10px 0" border :data="userArr" @selection-change="selectChange">
       <el-table-column type="selection" width="40px"></el-table-column>
-      <el-table-column
-        type="index"
-        width="40px"
-        label="#"
-        align="center"
-        show-overflow-tooltip
-      ></el-table-column>
-      <el-table-column
-        label="id"
-        width="80px"
-        align="center"
-        prop="id"
-        show-overflow-tooltip
-      ></el-table-column>
-      <el-table-column
-        label="用户名字"
-        align="center"
-        prop="username"
-        show-overflow-tooltip
-      ></el-table-column>
-      <el-table-column
-        label="用户名称"
-        align="center"
-        prop="name"
-        show-overflow-tooltip
-      ></el-table-column>
-      <el-table-column
-        label="用户角色"
-        align="center"
-        prop="roleName"
-        show-overflow-tooltip
-      ></el-table-column>
-      <el-table-column
-        label="创建时间"
-        align="center"
-        prop="createTime"
-        show-overflow-tooltip
-      ></el-table-column>
-      <el-table-column
-        label="更新时间"
-        align="center"
-        prop="updateTime"
-        show-overflow-tooltip
-      ></el-table-column>
+      <el-table-column type="index" width="40px" label="#" align="center" show-overflow-tooltip></el-table-column>
+      <el-table-column label="id" width="80px" align="center" prop="id" show-overflow-tooltip></el-table-column>
+      <el-table-column label="用户名字" align="center" prop="username" show-overflow-tooltip></el-table-column>
+      <el-table-column label="用户名称" align="center" prop="name" show-overflow-tooltip></el-table-column>
+      <el-table-column label="用户角色" align="center" prop="roleName" show-overflow-tooltip></el-table-column>
+      <el-table-column label="创建时间" align="center" prop="createTime" show-overflow-tooltip></el-table-column>
+      <el-table-column label="更新时间" align="center" prop="updateTime" show-overflow-tooltip></el-table-column>
       <el-table-column label="操作" align="center" width="315px">
-        <template #="{ row, $index }">
+        <template #="{ row }">
           <el-button plain type="primary" icon="User" @click="assignRoles(row)">
             分配角色
           </el-button>
           <el-button plain type="warning" icon="Edit" @click="editUser(row)">
             编辑
           </el-button>
-          <el-popconfirm
-            width="220"
-            icon="InfoFilled"
-            icon-color="#626AEF"
-            title="Are you sure to delete this?"
-            @confirm="deleteSingleUser(row.id)"
-          >
+          <el-popconfirm width="220" icon="InfoFilled" icon-color="#626AEF" title="Are you sure to delete this?"
+            @confirm="deleteSingleUser(row.id)">
             <template #reference>
               <el-button plain type="danger" icon="Delete">删除</el-button>
             </template>
@@ -107,54 +47,25 @@
     </el-table>
   </el-card>
   <!-- 分页器组件 -->
-  <el-pagination
-    v-model:current-page="pageNo"
-    v-model:page-size="pageSize"
-    :page-sizes="[3, 5, 7, 9]"
-    :background="true"
-    layout="prev, pager, next, jumper, ->, total, sizes"
-    :total="total"
-    style="margin: 10px 0; text-align: right"
-    @current-change="getHasUser"
-    @size-change="getHasUser()"
-  ></el-pagination>
+  <el-pagination v-model:current-page="pageNo" v-model:page-size="pageSize" :page-sizes="[3, 5, 7, 9]"
+    :background="true" layout="prev, pager, next, jumper, ->, total, sizes" :total="total"
+    style="margin: 10px 0; text-align: right" @current-change="getHasUser" @size-change="getHasUser()"></el-pagination>
 
   <!-- 抽屉组件：添加新的用户|更新已有的用户 -->
   <el-drawer v-model="drawer" :title="msg" :size="'40%'">
     <template #default>
-      <el-form
-        label-width="100px"
-        class="drawer-form"
-        :model="userParams"
-        :rules="rules"
-        ref="formRef"
-      >
+      <el-form label-width="100px" class="drawer-form" :model="userParams" :rules="rules" ref="formRef">
         <el-form-item label="用户姓名" prop="username">
-          <el-input
-            clearable
-            v-model="userParams.username"
-            type="text"
-            placeholder="请填写用户姓名"
-            class="input-field"
-          ></el-input>
+          <el-input clearable v-model="userParams.username" type="text" placeholder="请填写用户姓名"
+            class="input-field"></el-input>
         </el-form-item>
         <el-form-item label="用户昵称" prop="name">
-          <el-input
-            clearable
-            v-model="userParams.name"
-            type="text"
-            placeholder="请填写用户昵称"
-            class="input-field"
-          ></el-input>
+          <el-input clearable v-model="userParams.name" type="text" placeholder="请填写用户昵称"
+            class="input-field"></el-input>
         </el-form-item>
         <el-form-item label="用户密码" prop="password" v-if="!userParams.id">
-          <el-input
-            show-password
-            v-model="userParams.password"
-            type="password"
-            placeholder="请填写用户密码"
-            class="input-field"
-          ></el-input>
+          <el-input show-password v-model="userParams.password" type="password" placeholder="请填写用户密码"
+            class="input-field"></el-input>
         </el-form-item>
       </el-form>
     </template>
@@ -172,32 +83,15 @@
     <template #default>
       <el-form>
         <el-form-item label="用户姓名">
-          <el-input
-            type="text"
-            disabled
-            v-model="userParams.username"
-          ></el-input>
+          <el-input type="text" disabled v-model="userParams.username"></el-input>
         </el-form-item>
 
         <el-form-item label="角色列表">
-          <el-checkbox
-            value=""
-            v-model="checkAll"
-            :indeterminate="isIndeterminate"
-            @change="handleCheckAllChange"
-          >
+          <el-checkbox value="" v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">
             全选
           </el-checkbox>
-          <el-checkbox-group
-            v-model="hasRoles"
-            @change="handleCheckedRolesChange"
-          >
-            <el-checkbox
-              v-for="role in allRoles"
-              :key="role.id"
-              :label="role.roleName"
-              :value="role.roleName"
-            >
+          <el-checkbox-group v-model="hasRoles" @change="handleCheckedRolesChange">
+            <el-checkbox v-for="role in allRoles" :key="role.id" :label="role.roleName" :value="role.roleName">
               {{ role.roleName }}
             </el-checkbox>
           </el-checkbox-group>
@@ -232,7 +126,6 @@ import {
   User,
   UserData,
 } from '@/api/acl/user/type'
-import useLayoutSettingStore from '@/store/modules/setting'
 import useUserStore from '@/store/modules/user'
 import { CheckboxValueType, ElMessage } from 'element-plus'
 import { nextTick, onMounted, reactive, ref } from 'vue'
@@ -279,8 +172,6 @@ let selectUserArr = ref<UserData[]>([])
 let selectedIds = ref<number[]>([])
 // 收集搜索框用户输入的关键字
 let keyword = ref<string>('')
-// 获取setting仓库
-let settingStore = useLayoutSettingStore()
 
 // 挂载后获取全部账户信息
 onMounted(() => {
@@ -390,7 +281,7 @@ const rules = {
   ],
   name: [
     { required: true, message: '用户昵称不能为空', trigger: 'blur' },
-    { min: 3, max: 15, message: '字数限制在-15之间', trigger: 'blur' },
+    { min: 3, max: 15, message: '字数限制在3-15之间', trigger: 'blur' },
     { validator: check_space, trigger: 'blur' },
   ],
   password: [

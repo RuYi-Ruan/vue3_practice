@@ -9,7 +9,7 @@
             :disabled="scene == 0 ? false : true"
           >
             <el-option
-              v-for="(d1, index) in categoryStore.d1Arr"
+              v-for="(d1) in categoryStore.d1Arr"
               :key="d1.id"
               :value="d1.id"
               :label="d1.name"
@@ -24,7 +24,7 @@
             :disabled="scene == 0 ? false : true"
           >
             <el-option
-              v-for="(d2, index) in categoryStore.d2Arr"
+              v-for="(d2) in categoryStore.d2Arr"
               :key="d2.id"
               :label="d2.name"
               :value="d2.id"
@@ -38,7 +38,7 @@
             :disabled="scene == 0 ? false : true"
           >
             <el-option
-              v-for="(d3, index) in categoryStore.d3Arr"
+              v-for="(d3) in categoryStore.d3Arr"
               :key="d3.id"
               :label="d3.name"
               :value="d3.id"

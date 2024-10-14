@@ -1,21 +1,60 @@
 <template>
-  <el-table style="width: 100%; margin-bottom: 20px" row-key="id" border default-expand-all :data="permissionArr">
+  <el-table
+    style="width: 100%; margin-bottom: 20px"
+    row-key="id"
+    border
+    default-expand-all
+    :data="permissionArr"
+  >
     <el-table-column align="center" label="名称" prop="name"></el-table-column>
-    <el-table-column align="center" label="权限值" prop="code"></el-table-column>
-    <el-table-column align="center" label="修改时间" prop="updateTime"></el-table-column>
+    <el-table-column
+      align="center"
+      label="权限值"
+      prop="code"
+    ></el-table-column>
+    <el-table-column
+      align="center"
+      label="修改时间"
+      prop="updateTime"
+    ></el-table-column>
     <el-table-column align="center" label="操作" width="360px">
       <!-- row即为已有的菜单|按钮对象的数据 -->
-      <template #="{ row, $index }">
-        <el-button plain type="primary" icon="Plus" v-if="row.level == 4 ? false : true" @click="addMenu(row)">{{ row.level ==
-          3 ?
-          '添加功能' : " 添加菜单" }}</el-button>
-        <el-button plain type="warning" icon="Edit" :disabled="row.level == 1 ? true : false"
-          @click="editMenu(row)">编辑</el-button>
+      <template #="{ row }">
+        <el-button
+          plain
+          type="primary"
+          icon="Plus"
+          v-if="row.level == 4 ? false : true"
+          @click="addMenu(row)"
+        >
+          {{ row.level == 3 ? '添加功能' : ' 添加菜单' }}
+        </el-button>
+        <el-button
+          plain
+          type="warning"
+          icon="Edit"
+          :disabled="row.level == 1 ? true : false"
+          @click="editMenu(row)"
+        >
+          编辑
+        </el-button>
 
-        <el-popconfirm width="220" icon="InfoFilled" icon-color="#626AEF" :title="`确认删除'${row.name}'吗？`"
-          @confirm="deleteMenu(row.id)">
+        <el-popconfirm
+          width="220"
+          icon="InfoFilled"
+          icon-color="#626AEF"
+          :title="`确认删除'${row.name}'吗？`"
+          @confirm="deleteMenu(row.id)"
+        >
           <template #reference>
-            <el-button plain type="danger" icon="Delete" :disabled="row.level == 1 ? true : false">删除</el-button>
+            <el-button
+              plain
+              type="danger"
+              icon="Delete"
+              :disabled="row.level == 1 ? true : false"
+            >
+              删除
+            </el-button>
           </template>
         </el-popconfirm>
       </template>
@@ -26,11 +65,19 @@
   <el-dialog v-model="dialogView" :title="title" width="500">
     <el-form :rules="rules" ref="formRef" :model="menuData">
       <el-form-item label="名称" label-width="80px" prop="name">
-        <el-input type="text" placeholder="请输入名称" v-model="menuData.name"></el-input>
+        <el-input
+          type="text"
+          placeholder="请输入名称"
+          v-model="menuData.name"
+        ></el-input>
       </el-form-item>
 
       <el-form-item label="权限值" label-width="80px" prop="code">
-        <el-input type="text" placeholder="请输入权限值" v-model="menuData.code"></el-input>
+        <el-input
+          type="text"
+          placeholder="请输入权限值"
+          v-model="menuData.code"
+        ></el-input>
       </el-form-item>
     </el-form>
 
@@ -44,10 +91,19 @@
 </template>
 
 <script setup lang="ts">
-import { reqAddOrUpdateMenu, reqDeleteMenu, reqGetAllMenuData } from '@/api/acl/menu';
-import { MenuParams, Permission, PermissionList, PermissionResponseData } from '@/api/acl/menu/type';
-import { ElMessage } from 'element-plus';
-import { nextTick, onMounted, reactive, ref } from 'vue';
+import {
+  reqAddOrUpdateMenu,
+  reqDeleteMenu,
+  reqGetAllMenuData,
+} from '@/api/acl/menu'
+import {
+  MenuParams,
+  Permission,
+  PermissionList,
+  PermissionResponseData,
+} from '@/api/acl/menu/type'
+import { ElMessage } from 'element-plus'
+import { nextTick, onMounted, reactive, ref } from 'vue'
 
 // 存储菜单的数据
 let permissionArr = ref<PermissionList>([])
@@ -60,77 +116,76 @@ let menuData = reactive<MenuParams>({
   code: '', // 权限数值
   level: 0, // 几级菜单
   name: '', // 菜单的名字
-  pid: 0 // 菜单的ID
+  pid: 0, // 菜单的ID
 })
 // 获取form组件实例
 let formRef = ref<any>()
 
 // 组件挂载完毕
 onMounted(() => {
-  getHasPermission();
+  getHasPermission()
 })
 
 // 获取菜单数据的方法
 const getHasPermission = async () => {
-  let result: PermissionResponseData = await reqGetAllMenuData();
+  let result: PermissionResponseData = await reqGetAllMenuData()
   if (result.code == 200) {
-    permissionArr.value = result.data;
+    permissionArr.value = result.data
   }
 }
 
 // 添加菜单
 const addMenu = (row: Permission) => {
   // 清除之前的错误信息
-  removeLastError();
+  removeLastError()
   // 清除之前收集的数据
   Object.assign(menuData, {
     code: '', // 权限数值
     level: 0, // 几级菜单
     name: '', // 菜单的名字
-    pid: 0 // 菜单的ID
+    pid: 0, // 菜单的ID
   })
-  title.value = '添加菜单';
-  dialogView.value = true;
+  title.value = '添加菜单'
+  dialogView.value = true
   // 收集新增菜单level数据并+1
-  menuData.level = row.level + 1;
-  menuData.pid = row.id;
-
+  menuData.level = row.level + 1
+  menuData.pid = row.id
 }
 
 // 编辑菜单信息
 const editMenu = (row: Permission) => {
   // 清除之前的错误信息
-  removeLastError();
+  removeLastError()
   // 合并信息
-  Object.assign(menuData, row);
-  title.value = '更新菜单信息';
-  dialogView.value = true;
+  Object.assign(menuData, row)
+  title.value = '更新菜单信息'
+  dialogView.value = true
 }
 
 // 删除菜单
 const deleteMenu = async (id: number) => {
-  let result: any = await reqDeleteMenu(id);
+  let result: any = await reqDeleteMenu(id)
   if (result.code == 200) {
-    ElMessage.success('删除成功');
-    getHasPermission();
+    ElMessage.success('删除成功')
+    getHasPermission()
   } else {
-    ElMessage.error('删除失败');
+    ElMessage.error('删除失败')
   }
 }
 
 // 添加|更新菜单对话框确认按钮回调
 const save = async () => {
   // 表单校验结果通过才能发请求
-  await formRef.value.validate();
+  await formRef.value.validate()
   // 发请求
-  let result: any = await reqAddOrUpdateMenu(menuData);
+  let result: any = await reqAddOrUpdateMenu(menuData)
   if (result.code == 200) {
-    ElMessage.success(title.value === '添加菜单' ? '添加成功' : '更新成功');
-    dialogView.value = false;
-    // 重新获取已有菜单与按钮数据 
-    getHasPermission();
+    ElMessage.success(title.value === '添加菜单' ? '添加成功' : '更新成功')
+    dialogView.value = false
+    // 重新获取已有菜单与按钮数据
+    getHasPermission()
   } else {
-    ElMessage.error(title.value === '添加菜单' ? '添加失败' : '更新失败');
+    ElMessage.error(title.value === '添加菜单' ? '添加失败' : '更新失败')
   }
 }
 
@@ -161,7 +216,7 @@ const rules = {
   code: [
     { required: true, message: '权限值不能为空', trigger: 'blur' },
     { validator: check_space, trigger: 'blur' },
-  ]
+  ],
 }
 
 // 清除上次的错误信息

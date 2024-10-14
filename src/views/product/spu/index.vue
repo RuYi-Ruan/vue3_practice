@@ -37,7 +37,7 @@
 
           <el-table-column label="操作" align="center">
             <!-- row即为已有SPU对象 -->
-            <template #="{ row, $index }">
+            <template #="{ row }">
               <el-button
                 type="primary"
                 size="small"
@@ -101,7 +101,7 @@
           <el-table-column label="SKU价格" prop="price"></el-table-column>
           <el-table-column label="SKU重量" prop="weight"></el-table-column>
           <el-table-column label="SKU图片">
-            <template #="{ row, $index }">
+            <template #="{ row }">
               <img
                 :src="row.skuDefaultImg"
                 alt="SKU图片"
